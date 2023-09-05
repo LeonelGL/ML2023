@@ -1,0 +1,48 @@
+import numpy as np
+import matplotlib.pyplot as plt
+KL_Dist1_Mu = []
+KL_Dist1_Var = []
+KL_Dist2_Mu = []
+KL_Dist2_Var = []
+rango = np.linspace(0.1,3,100)
+
+for x in rango:
+    s = 1
+    sigma = 1
+    mu = 0
+    eme = x
+    KL_Dist1_Mu.append(np.log(s/sigma)+1/(2*(s/sigma)**2)-0.5+((mu-eme)/(2*s))**2)
+    s = 1
+    sigma = 1
+    mu = x
+    eme = 0
+    KL_Dist2_Mu.append(np.log(s/sigma)+1/(2*(s/sigma)**2)-0.5+((mu-eme)/(2*s))**2)
+    
+for x in rango:
+    s = x
+    sigma = 1
+    mu = 0
+    eme = 0
+    KL_Dist1_Var.append(np.log(s/sigma)+1/(2*(s/sigma)**2)-0.5+((mu-eme)/(2*s))**2)
+    s = 1
+    sigma = x
+    mu = 0
+    eme = 0
+    KL_Dist2_Var.append(np.log(s/sigma)+1/(2*(s/sigma)**2)-0.5+((mu-eme)/(2*s))**2)
+
+
+
+plt.plot(rango, KL_Dist1_Mu, label='Primera dist normalizada')
+plt.plot(rango, KL_Dist2_Mu, label='Segunda dist. normalizada')
+plt.title('KL Divergence respecto a la media')
+plt.xlabel('Media')
+plt.ylabel('KL Divergence')
+plt.legend()
+
+
+plt.plot(rango[10:], KL_Dist1_Var[10:], label='Primera dist normalizada')
+plt.plot(rango[10:], KL_Dist2_Var[10:], label='Segunda dist. normalizada')
+plt.title('KL Divergence respecto a la Varianza')
+plt.xlabel('Varianza')
+plt.ylabel('KL Divergence')
+plt.legend()
